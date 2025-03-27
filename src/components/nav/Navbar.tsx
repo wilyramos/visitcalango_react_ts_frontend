@@ -61,7 +61,7 @@ export default function Navbar() {
                     }`}
                 >
                     <Link to="/explora" className="">
-                        Explora
+                        Explorar
                     </Link>
                     <Link to="/login" className={`flex items-center gap-2`}>
                         <FaUser />
