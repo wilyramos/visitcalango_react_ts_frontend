@@ -22,12 +22,6 @@ export default function Navbar() {
                 setIsTop(false);
             }
             lastScrollY.current = currentScrollY;
-
-            console.log("isTop", isTop);
-            console.log("isVisible", isVisible);
-
-            console.log("currentScrollY", currentScrollY);
-            console.log("lastScrollY", lastScrollY.current);
         });
     };
 
