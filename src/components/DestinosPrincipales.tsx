@@ -6,7 +6,7 @@ export default function DestinosPrincipales() {
     const { data, isLoading } = useQuery<Places>({
         queryKey: ["places"],
         queryFn: async () => {
-            const response = await fetch("http://localhost:4000/api/places");
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/places`);
             if (!response.ok) {
                 throw new Error("Network response was not ok");
             }
