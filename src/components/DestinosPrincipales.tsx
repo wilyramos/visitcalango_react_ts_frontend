@@ -6,7 +6,17 @@ export default function DestinosPrincipales() {
     const { data, isLoading } = useQuery<Places>({
         queryKey: ["places"],
         queryFn: async () => {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/places`);
+
+            const url = `${import.meta.env.local.VITE_BACKEND_URL}/places`;
+            console.log(url);
+            const response = await fetch(url, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+
             if (!response.ok) {
                 throw new Error("Network response was not ok");
             }
