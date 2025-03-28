@@ -36,13 +36,13 @@ export default function DestinosPrincipales() {
 
     return (
         <>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6  text-gray-600">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-6  text-gray-600">
                 {firstFourPlaces.map((place, index) => {
                     switch (index) {
                         case 0:
                             return <PlaceCard key={place._id} place={place} />;
                         case 1:
-                            return <PlaceCard key={place._id} place={place} colSpan={2} descriptionLength={100}  imageHeight="h-64" />;
+                            return <PlaceCard key={place._id} place={place} colSpan={2} descriptionLength={100}  imageHeight="h-80" />;
                         case 2:
                             return <PlaceCard key={place._id} place={place} colSpan={2} descriptionLength={100} imageHeight="h-48" />;
                         case 3:

@@ -11,7 +11,7 @@ export async function createPlace(formData: PlaceRegistrationForm) {
         return data
     } catch (error) {
         if (isAxiosError(error) && error.response) {
-            throw new Error(error.response.data.message)
+            throw new Error(error.response.data)
         }
         // Si el error no es de Axios, lanza un error genérico o maneja según sea necesario
         throw new Error('Error al crear el lugar.');
@@ -21,15 +21,16 @@ export async function createPlace(formData: PlaceRegistrationForm) {
 export async function uploadImages(formData: FormData, placeId: string) {
     try {
         const url = `/places/${placeId}/upload`
-        console.log(url)
+        // console.log(url)
         const { data } = await api.post<string>(url, formData)
         return data
     } catch (error) {
+        console.error(error)
         if (isAxiosError(error) && error.response) {
             throw new Error(error.response.data.message)
         }
         // Si el error no es de Axios, lanza un error genérico o maneja según sea necesario
-        throw new Error('Error al subir las imágenes.');
+        // throw new Error('Error al subir las imágenes.');
     }
 }
 

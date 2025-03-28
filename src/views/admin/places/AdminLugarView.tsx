@@ -54,6 +54,9 @@ export default function AdminLugarView() {
         onError: (error) => {
             //console.error(error);
             toast.error(error.message);
+            console.log(error);
+            console.log(error.message);
+            toast.error("Error al subir las imágenes (f).");
         },
         onSuccess: () => {
             toast.success("Imágenes subidas correctamente.");
