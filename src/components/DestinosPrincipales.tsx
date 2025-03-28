@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import PlaceCard from "./Place/PlaceCard";
 import { SpinnerDiamond } from "spinners-react";
 import { getPlaces } from "../api/PlaceAPI";
+import PlaceViewModal from "@/views/places/PlaceViewModal";
 
 export default function DestinosPrincipales() {
     const { data, isLoading, error } = useQuery({
@@ -54,14 +55,21 @@ export default function DestinosPrincipales() {
     ];
 
     return (
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 text-gray-600">
-            {firstFourPlaces.map((place, index) => (
-                <PlaceCard
-                    key={place._id}
-                    place={place}
-                    {...placeCardConfigs[index]}
-                />
-            ))}
-        </div>
+
+        <>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-6 text-gray-600">
+                {firstFourPlaces.map((place, index) => (
+                    <PlaceCard
+                        key={place._id}
+                        place={place}
+                        {...placeCardConfigs[index]}
+                    />
+                ))}
+            </div>
+
+            <PlaceViewModal />
+
+        </>
+
     );
 }
