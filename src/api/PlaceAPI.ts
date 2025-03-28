@@ -1,7 +1,6 @@
 import api from "@/lib/axios";
 import { isAxiosError } from "axios";
-import { PlaceRegistrationForm, Place, placesSchema } from "../types";
-
+import { PlaceRegistrationForm, Place, placesSchema, placeSchema } from "../types";
 
 export async function createPlace(formData: PlaceRegistrationForm) {
 
@@ -44,6 +43,22 @@ export async function getPlaces() {
         }
         return response.data
         
+    } catch (error) {
+        if (isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.message)
+        }
+    }
+}
+
+export async function getPlace(placeId: string) {
+    try {
+        const url = `/places/${placeId}`
+        const { data } = await api.get(url)
+        const response = placeSchema.safeParse(data)
+        if (!response.success) {
+            throw new Error('Error al obtener el lugar.')
+        }
+        return response.data
     } catch (error) {
         if (isAxiosError(error) && error.response) {
             throw new Error(error.response.data.message)

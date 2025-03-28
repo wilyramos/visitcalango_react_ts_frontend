@@ -11,10 +11,10 @@ export default function AuthLayout() {
                 <div className="flex justify-center">
                     <Navbar />
                 </div>
-                
-                <Outlet />
-                
-                
+
+                <div className="container mx-auto">
+                    <Outlet />
+                </div>
             </div>
             {/* <Footer /> */}
             <ToastContainer

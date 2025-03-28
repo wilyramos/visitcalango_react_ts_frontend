@@ -7,6 +7,7 @@ import AppLayout from "./layouts/AppLayout";
 import DashboardView from "./views/admin/DashboardView";
 import AdminLugarView from "./views/admin/places/AdminLugarView";
 import NotFound from "./views/404/NotFound";
+import PlaceView from "./views/places/PlaceView";
 
 export default function App() {
     return (
@@ -19,6 +20,7 @@ export default function App() {
                         <Route path="*" element={<NotFound />} />
                         <Route path="/login" element={<LoginView />} />
                         <Route path="/register" element={<RegisterView />} />
+                        <Route path="/places/:placeId" element={<PlaceView />} />
                     </Route>
 
                     <Route element={<AppLayout />}>

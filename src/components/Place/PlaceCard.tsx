@@ -24,13 +24,13 @@ export default function PlaceCard({
             />
 
             <div className="absolute inset-0 flex flex-row justify-between p-4 bg-gradient-to-t from-black/70 text-gray-50  rounded-3xl "> {/* Modificamos la clase del overlay */}
-                <Link to={`/place/${place._id}`}>
+                <Link to={`/places/${place._id}`}>
                     <h2 className="text-lg font-semibold">{place.name}</h2>
                     <p className="text-sm">
                         {place.description.substring(0, descriptionLength)}...
                     </p>
                 </Link>
-                <Link to={`/place/${place._id}`} className="mt-2 text-sm text-white-400 hover:underline flex flex-end items-end cursor-pointer ">
+                <Link to={`/places/${place._id}`} className="mt-2 text-sm text-white-400 hover:underline flex flex-end items-end cursor-pointer ">
                     Ver más
                 </Link>
             </div>

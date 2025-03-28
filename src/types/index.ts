@@ -27,7 +27,7 @@ export type User = z.infer<typeof userSchema>
 
 /**DESTINOS */
 
-const placeSchema = z.object({
+export const placeSchema = z.object({
     name: z.string(),
     description: z.string(),
     category: z.string(),
@@ -41,6 +41,7 @@ export type PlaceRegistrationForm = Pick<Place, 'name' | 'description' | 'catego
 export type PlaceResponseCreate = Pick<Place, 'name' | 'description' | 'category' | 'location' | 'images' | '_id'>
 
 // Destinos es un array de destinos
+
 export const placesSchema = z.array(placeSchema)
 export type Places = z.infer<typeof placesSchema>
 
