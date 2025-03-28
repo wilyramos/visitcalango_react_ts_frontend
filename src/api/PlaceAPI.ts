@@ -1,6 +1,6 @@
 import api from "@/lib/axios";
 import { isAxiosError } from "axios";
-import { PlaceRegistrationForm, Place } from "../types";
+import { PlaceRegistrationForm, Place, placesSchema } from "../types";
 
 
 export async function createPlace(formData: PlaceRegistrationForm) {
@@ -37,8 +37,13 @@ export async function uploadImages(formData: FormData, placeId: string) {
 export async function getPlaces() {
     try {
         const url = '/places'
-        const { data } = await api.get<Place[]>(url)
-        return data
+        const  {data}  = await api.get(url)
+        const response = placesSchema.safeParse(data)
+        if (!response.success) {
+            
+        }
+        return response.data
+        
     } catch (error) {
         if (isAxiosError(error) && error.response) {
             throw new Error(error.response.data.message)
