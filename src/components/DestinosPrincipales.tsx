@@ -48,8 +48,8 @@ export default function DestinosPrincipales() {
 
     const placeCardConfigs = [
         {}, // Default
-        { colSpan: 2, descriptionLength: 100, imageHeight: "h-80" },
-        { colSpan: 2, descriptionLength: 100, imageHeight: "h-48" },
+        { colSpan: 2, descriptionLength: 50, imageHeight: "h-80" },
+        { colSpan: 2, descriptionLength: 50, imageHeight: "h-48" },
         {}, // Default
     ];
 

@@ -15,7 +15,7 @@ export default function PlaceCard({
     return (
         <div
             className={` ${colSpan === 1 ? "md:col-span-1" : "md:col-span-2"
-                } relative transition-all duration-500 hover:shadow-md hover:scale-[1.03]`} 
+                } relative transition-all duration-500 hover:shadow-md hover:scale-[1.03]`}
         >
             <img
                 src={place.images[0]}
@@ -25,13 +25,21 @@ export default function PlaceCard({
 
             <div className="absolute inset-0 flex flex-row justify-between p-4 bg-gradient-to-t from-black/70 text-gray-50  rounded-3xl "> {/* Modificamos la clase del overlay */}
                 <Link to={`/places/${place._id}`}>
-                    <h2 className="text-lg font-semibold">{place.name}</h2>
-                    <p className="text-sm">
-                        {place.description.substring(0, descriptionLength)}...
-                    </p>
+                    <h1 className="text-sm md:text-lg font-bold">{place.name.slice(0, 30)}</h1>
+
                 </Link>
-                <Link to={`/places/${place._id}`} className="mt-2 text-sm text-white-400 hover:underline flex flex-end items-end cursor-pointer ">
-                    Ver más
+                
+                <p className="hidden sm:block absolute bottom-6 left-4 text-sm text-gray-300 ">
+
+                    {place.description.length > descriptionLength
+                        ? `${place.description.slice(0, descriptionLength)}...`
+                        : place.description}
+                </p>
+
+                <Link to={`/places/${place._id}`} className=" text-sm text-gray-100 hover:underline flex flex-end items-end cursor-pointer ">
+                        
+                    
+                    ver más
                 </Link>
             </div>
         </div>
