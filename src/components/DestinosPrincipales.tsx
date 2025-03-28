@@ -7,7 +7,7 @@ export default function DestinosPrincipales() {
         queryKey: ["places"],
         queryFn: async () => {
 
-            const url = `${import.meta.env.local.VITE_BACKEND_URL}/places`;
+            const url = `${import.meta.env.VITE_BACKEND_URL}/places`;
             console.log(url);
             const response = await fetch(url, {
                 method: "GET",
