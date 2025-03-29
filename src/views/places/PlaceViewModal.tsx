@@ -1,111 +1,158 @@
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { SpinnerDiamond } from 'spinners-react';
 import { getPlace } from "@/api/PlaceAPI";
-
-
-
-
-
+import usePlaceViewModal from "@/hooks/usePlaceViewModal";
+import { MdLocationOn, MdCategory, MdClose } from 'react-icons/md';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, A11y } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 export default function PlaceViewModal() {
+    const { isOpen, placeId, onClose } = usePlaceViewModal();
 
-    const navigate = useNavigate()
-    const location = useLocation()
-    const queryParams = new URLSearchParams(location.search)
-
-    const placeId = queryParams.get("viewPlace")!
-
-    const isOpen = !!placeId // Verifica si placeId está presente para abrir el modal
 
     const { data, isLoading, error } = useQuery({
         queryKey: ["place", placeId],
-        queryFn: () => getPlace(placeId),
+        queryFn: () => placeId ? getPlace(placeId) : null,
+        enabled: !!placeId,
     });
 
-    console.log("data", data, "isLoading", isLoading, "error", error)
+    if (!isOpen) return null;
 
+    const handleClose = () => {
+        onClose();
+    };
 
     if (isLoading) {
         return (
-            <div className="flex items-center justify-center h-screen">
-                <SpinnerDiamond size={50} />
+            <div className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-50">
+                <SpinnerDiamond size={40} color="#64748b" />
             </div>
-        )
+        );
     }
+
     if (error) {
         return (
-            <div className="flex items-center justify-center h-screen">
-                <h1 className="text-2xl font-bold text-red-500">Error al cargar el lugar</h1>
+            <div className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-50">
+                <div className="rounded-lg p-6 shadow-md bg-white/90 backdrop-blur-md">
+                    <h1 className="text-lg font-semibold text-red-500 mb-2">Error al cargar</h1>
+                    <button onClick={handleClose} className="mt-2 px-3 py-1 text-sm rounded-md text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300">Cerrar</button>
+                </div>
             </div>
-        )
+        );
     }
 
     if (!data) {
         return (
-            <div className="flex items-center justify-center h-screen">
-                <h1 className="text-2xl font-bold text-red-500">No se encontró el lugar</h1>
+            <div className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-50">
+                <div className="rounded-lg p-6 shadow-md bg-white/90 backdrop-blur-md">
+                    <h1 className="text-lg font-semibold text-yellow-500 mb-2">No encontrado</h1>
+                    <button onClick={handleClose} className="mt-2 px-3 py-1 text-sm rounded-md text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300">Cerrar</button>
+                </div>
             </div>
-        )
+        );
     }
-    if (data) return (
-        <>
-            <Transition appear show={isOpen} as={Fragment}>
-                <Dialog as="div" className="relative z-10" onClose={() => navigate(location.pathname, { replace: true })}>
-                    <Transition.Child
-                        as={Fragment}
-                        enter="ease-out duration-300"
-                        enterFrom="opacity-0"
-                        enterTo="opacity-100"
-                        leave="ease-in duration-200"
-                        leaveFrom="opacity-100"
-                        leaveTo="opacity-0"
-                    >
-                        <div className="fixed inset-0 bg-black/60" />
-                    </Transition.Child>
 
-                    <div className="fixed inset-0 overflow-y-auto">
-                        <div className="flex min-h-full items-center justify-center p-4 text-center">
-                            <Transition.Child
-                                as={Fragment}
-                                enter="ease-out duration-300"
-                                enterFrom="opacity-0 scale-95"
-                                enterTo="opacity-100 scale-100"
-                                leave="ease-in duration-200"
-                                leaveFrom="opacity-100 scale-100"
-                                leaveTo="opacity-0 scale-95"
-                            >
-                                <Dialog.Panel className="w-full max-w-4xl transform overflow-hidden rounded-3xl bg-white text-left align-middle shadow-2xl transition-all p-8">
-                                    <p className='text-xs text-gray-500 mb-2'>Agregada el:</p>
+    return (
+        <Transition appear show={isOpen} as={Fragment}>
+            <Dialog as="div" className="" onClose={handleClose}>
+                <Transition.Child
+                    as={Fragment}
+                    enter="ease-out duration-300"
+                    enterFrom="opacity-0"
+                    enterTo="opacity-100"
+                    leave="ease-in duration-150"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                >
+                    <div className="" />
+                </Transition.Child>
 
-
-                                    <Dialog.Title as="h3" className="text-4xl font-extrabold my-4 text-sky-500 hover:text-sky-600 transition-all">
-                                        {/* {data.name} */}
+                <div className="fixed inset-0 overflow-y-auto bg-black/10  z-10">
+                    <div className="flex min-h-full items-center justify-center p-4 text-center">
+                        <Transition.Child
+                            as={Fragment}
+                            enter="ease-out duration-200"
+                            enterFrom="opacity-0 scale-95"
+                            enterTo="opacity-100 scale-100"
+                            leave="ease-in duration-150"
+                            leaveFrom="opacity-100 scale-100"
+                            leaveTo="opacity-0 scale-95"
+                        >
+                            <Dialog.Panel className="w-full max-w-3xl transform overflow-hidden rounded-3xl bg-gray-50 text-left align-middle shadow-md transition-all">
+                                {/* Barra superior minimalista */}
+                                <div className="flex justify-between items-center px-4 py-3">
+                                    <Dialog.Title as="h3" className="text-2xl font-semibold text-gray-800">
+                                        {data.name}
                                     </Dialog.Title>
+                                    <button
+                                        onClick={handleClose}
+                                        className="text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-300 "
+                                    >
+                                        <MdClose className="h-5 w-5" />
+                                    </button>
+                                </div>
 
-                                    <p className='text-md text-gray-600 mb-4'>Descripción: {data.name}</p>
+                                {/* Contenido principal */}
+                                <div className="p-4 md:p-6">
+                                    {/* Carrusel de imágenes minimalista */}
+                                    {data.images && data.images.length > 0 && (
+                                        <div className="mb-4 overflow-hidden">
+                                            <Swiper
+                                                modules={[Navigation, Pagination, A11y]}
+                                                spaceBetween={5}
+                                                slidesPerView={1}
+                                                navigation={{
+                                                    prevEl: '.swiper-button-prev-minimal',
+                                                    nextEl: '.swiper-button-next-minimal',
+                                                }}
+                                                pagination={{ clickable: true }}
+                                                
+                                            >
+                                                {data.images.map((image, index) => (
+                                                    <SwiperSlide key={index}>
+                                                        <img
+                                                            src={image}
+                                                            alt={`${data.name} - Imagen ${index + 1}`}
+                                                            className="w-full h-[300px] object-cover rounded-md"
+                                                        />
+                                                    </SwiperSlide>
+                                                ))}
+                                                {data.images.length > 1 && (
+                                                    <>
+                                                        <div className="swiper-button-prev swiper-button-prev-minimal text-gray-500 hover:text-gray-700 cursor-pointer absolute top-1/2 -translate-y-1/2 left-2 z-10"></div>
+                                                        <div className="swiper-button-next swiper-button-next-minimal text-gray-500 hover:text-gray-700 cursor-pointer absolute top-1/2 -translate-y-1/2 right-2 z-10"></div>
+                                                    </>
+                                                )}
+                                            </Swiper>
+                                        </div>
+                                    )}
 
-
-
-                                    <div className='my-6 space-y-3'>
-
-
-
+                                    <div className="flex items-center mb-2 space-x-2 text-gray-500 text-xs">
+                                        <MdLocationOn className="h-4 w-4" />
+                                        <span>{data.location}</span>
+                                    </div>
+                                    <div className="flex items-center mb-3 space-x-2 text-gray-500 text-xs">
+                                        <MdCategory className="h-4 w-4" />
+                                        <span>{data.category}</span>
                                     </div>
 
-                                    {/* <NotesPanel notes={data.notes} /> */}
-                                </Dialog.Panel>
-                            </Transition.Child>
-                        </div>
+                                    {data.description && (
+                                        <div className="mb-4">
+                                            <h4 className="text-md font-semibold text-gray-700 mb-1">Descripción</h4>
+                                            <p className="text-gray-600 text-sm leading-relaxed">{data.description}</p>
+                                        </div>
+                                    )}
+                                </div>
+                            </Dialog.Panel>
+                        </Transition.Child>
                     </div>
-                </Dialog>
-            </Transition>
-
-
-
-
-        </>
-    )
+                </div>
+            </Dialog>
+        </Transition>
+    );
 }
