@@ -8,7 +8,6 @@ import { MdLocationOn, MdCategory } from 'react-icons/md';
 export default function PlaceCard({
     place,
     colSpan = 1,
-    descriptionLength = 50,
     imageHeight = ""
 }: {
     place: Place;
@@ -32,19 +31,19 @@ export default function PlaceCard({
                 className={`w-full h-48 object-cover ${imageHeight}  rounded-3xl`}
             />
 
-            <div className="absolute inset-0 flex flex-row justify-between p-4 bg-gradient-to-t from-black/70 text-white  rounded-3xl ">
+            <div className="absolute inset-0 flex flex-col justify-between p-4 bg-black/50 text-white  rounded-3xl ">
                 <Link to={`/places/${place._id}`}>
                     <h1 className="text-sm md:text-lg font-semibold text-shadow-DEFAULT">
                         {place.name.slice(0, 30)}
                     </h1>
                 </Link>
 
-                <div className="flex flex-col items-start">
-                    <span className="text-md flex items-center">
+                <div className="flex items-start space-x-2 text-center text-xs flex-col md:flex-row md:items-center absolute bottom-20">
+                    <span className="flex items-start">
                         <MdLocationOn className="mr-1" />
                         {place.location}
                     </span>
-                    <span className="text-xs font-semibold flex items-center">
+                    <span className="flex items-start">
                         <MdCategory className="mr-1" />
                         {place.category}
                     </span>
@@ -52,7 +51,7 @@ export default function PlaceCard({
 
                 <button
                     type="button"
-                    className="absolute bottom-2 right-4 hover:bg-white hover:text-gray-800 text-white py-1 px-2 rounded-full transition duration-300 ease-in-out border-gray-100 border-2"
+                    className="absolute bottom-4 right-4 hover:bg-white hover:text-gray-800 text-white py-1 px-2 rounded-full transition duration-300 ease-in-out border-gray-100 border-2"
                     onClick={() => navigate(location.pathname + `?viewPlace=${place._id}`)} // Cambia la ruta según tu lógica de navegación
                 >
                     Ver más
