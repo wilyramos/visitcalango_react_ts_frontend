@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.text-shadow {
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+
+.outlined-text-shadow-black {
+    text-shadow:
+        0 0 2px rgba(0, 0, 0, 0.5),
+        0 0 2px rgba(0, 0, 0, 0.5),
+        0 0 2px rgba(0, 0, 0, 0.5),
+        0 0 2px rgba(0, 0, 0, 0.1);    /* Set the inner text color */
+        
+
+    color: white;
+    /* Set the inner text color */
+}

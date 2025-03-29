@@ -29,14 +29,14 @@ export default function Header() {
                 transition: "background-image 1s ease-in-out", // Agrega una transición suave
             }}
         >
-            <div className="absolute inset-0 bg-black bg-opacity-70"></div>
+            <div className="absolute inset-0 bg-black/10"></div>
 
             <div className="relative w-full max-w-6xl mx-auto text-center justify-center">
-                <div className="flex flex-col justify-center text-white px-6 sm:px-8 space-y-4 sm:space-y-6">
+                <div className="flex flex-col justify-center text-white px-6 sm:px-8 space-y-4 sm:space-y-6 outlined-text-shadow-black">
                     <h1 className="text-3xl sm:text-5xl font-bold">
-                        Aventúrate en <span className="tesxt-gray-400">Calango</span>
+                        Aventúrate en <span className="text-shadow-5xl ">Calango</span>
                     </h1>
-                    <p className="text-base sm:font-semibold">
+                    <p className="text-base sm:font-semibold outlined-text-shadow">
                         Vive la experiencia de un paraíso escondido, lleno de encanto y tradición.
                     </p>
                     <Link

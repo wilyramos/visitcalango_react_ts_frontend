@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { Dialog, Transition } from '@headlessui/react';
+import { Button, Dialog, Transition } from '@headlessui/react';
 import { useQuery } from '@tanstack/react-query';
 import { SpinnerDiamond } from 'spinners-react';
 import { getPlace } from "@/api/PlaceAPI";
@@ -10,10 +10,11 @@ import { Navigation, Pagination, A11y } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import { useNavigate } from 'react-router-dom';
 
 export default function PlaceViewModal() {
     const { isOpen, placeId, onClose } = usePlaceViewModal();
-
+    const navigate = useNavigate()
 
     const { data, isLoading, error } = useQuery({
         queryKey: ["place", placeId],
@@ -111,7 +112,7 @@ export default function PlaceViewModal() {
                                                     nextEl: '.swiper-button-next-minimal',
                                                 }}
                                                 pagination={{ clickable: true }}
-                                                
+
                                             >
                                                 {data.images.map((image, index) => (
                                                     <SwiperSlide key={index}>
@@ -147,6 +148,16 @@ export default function PlaceViewModal() {
                                             <p className="text-gray-600 text-sm leading-relaxed">{data.description}</p>
                                         </div>
                                     )}
+                                    <Button
+                                        type="button"
+                                        className="mt-2 w-full rounded-md bg-gray-800 text-white py-2 hover:bg-gray-700 transition duration-300 ease-in-out"
+                                        onClick={() => {
+                                            handleClose();
+                                            navigate(`/places/${data._id}`);
+                                        }}
+                                    >
+                                        Ver más detalles
+                                    </Button>
                                 </div>
                             </Dialog.Panel>
                         </Transition.Child>

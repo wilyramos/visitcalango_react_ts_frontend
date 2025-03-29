@@ -51,7 +51,7 @@ export default function PlaceCard({
 
                 <button
                     type="button"
-                    className="absolute bottom-4 right-4 hover:bg-white hover:text-gray-800 text-white py-1 px-2 rounded-full transition duration-300 ease-in-out border-gray-100 border-2"
+                    className="absolute bottom-4 right-4 hover:bg-white hover:text-gray-800 text-white px-2 rounded-full transition duration-300 ease-in-out border-gray-100 border-2 text-sm"
                     onClick={() => navigate(location.pathname + `?viewPlace=${place._id}`)} // Cambia la ruta según tu lógica de navegación
                 >
                     Ver más

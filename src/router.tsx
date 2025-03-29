@@ -8,6 +8,7 @@ import DashboardView from "./views/admin/DashboardView";
 import AdminLugarView from "./views/admin/places/AdminLugarView";
 import NotFound from "./views/404/NotFound";
 import PlaceView from "./views/places/PlaceView";
+import Categorias from "./components/Place/Categorias";
 
 export default function App() {
     return (
@@ -21,6 +22,7 @@ export default function App() {
                         <Route path="/login" element={<LoginView />} />
                         <Route path="/register" element={<RegisterView />} />
                         <Route path="/places/:placeId" element={<PlaceView />} />
+                        <Route path="/explora" element={<Categorias />} />
                     </Route>
 
                     <Route element={<AppLayout />}>
