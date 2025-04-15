@@ -2,51 +2,73 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function Header() {
-    const images = [
-        "../images/bg.webp",
-        "../images/bg.webp",
-        "../images/bg.webp",
-        // Agrega más imágenes aquí
-    ];
+  const images = [
+    "../images/bg.webp",
+    "../images/bg2.svg",
+    "../images/bg3.svg",
+  ];
 
-    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [nextImageIndex, setNextImageIndex] = useState(1 % images.length);
+  const [transitioning, setTransitioning] = useState(false);
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-        }, 5000); // Cambia la imagen cada 5 segundos (ajusta el tiempo según necesites)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTransitioning(true);
+      setTimeout(() => {
+        setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+        setNextImageIndex((prevIndex) => (prevIndex + 1 + 1) % images.length);
+        setTransitioning(false);
+      }, 1000);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [images.length]);
 
-        return () => clearInterval(interval); // Limpia el intervalo cuando el componente se desmonta
-    }, [images.length]);
-
-    return (
-        <header
-            className="h-[50vh] flex items-center justify-center relative"
-            style={{
-                backgroundImage: `url(${images[currentImageIndex]})`,
-                backgroundSize: "cover", // O "cover" para llenar el área completamente
-                backgroundPosition: "center",
-                transition: "background-image 1s ease-in-out", // Agrega una transición suave
-            }}
-        >
-            <div className="absolute inset-0 bg-black/10"></div>
-
-            <div className="relative w-full max-w-6xl mx-auto text-center justify-center">
-                <div className="flex flex-col justify-center text-white px-6 sm:px-8 space-y-4 sm:space-y-6 outlined-text-shadow-black">
-                    <h1 className="text-3xl sm:text-5xl font-bold">
-                        Aventúrate en <span className="text-shadow-5xl ">Calango</span>
-                    </h1>
-                    <p className="text-base sm:font-semibold outlined-text-shadow">
-                        Vive la experiencia de un paraíso escondido, lleno de encanto y tradición.
-                    </p>
-                    <Link
-                        to="/explora"
-                        className="border-l-2 text-white px-6 shadow-lg hover:text-gray-200 mx-auto "
-                    >
-                        Explorar
-                    </Link>
-                </div>
-            </div>
-        </header>
-    );
+  return (
+    <header className="h-[60vh] md:h-[75vh] flex items-center justify-center relative overflow-hidden">
+      <div
+        className="absolute inset-0 bg-gradient-to-b from-black/40
+          via-black/20 to-transparent z-10"
+      ></div>
+      <div
+        className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+          transitioning ? "opacity-0" : "opacity-100"
+        }`}
+        style={{
+          backgroundImage: `url(${images[currentImageIndex]})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      ></div>
+      <div
+        className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+          transitioning ? "opacity-100" : "opacity-0"
+        }`}
+        style={{
+          backgroundImage: `url(${images[nextImageIndex]})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      ></div>
+      <div className="relative w-full max-w-6xl mx-auto text-center z-20">
+        <div className="flex flex-col justify-center text-white px-6 sm:px-8 space-y-5 sm:space-y-8">
+          <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold leading-tight tracking-tight">
+            Descubre la Magia de{" "}
+            <span className="text-orange-500 font-semibold">Calango</span>
+          </h1>
+          <p className="text-lg sm:text-xl font-medium text-gray-200 leading-relaxed">
+            Un destino <span className="font-bold italic text-orange-300">único</span>{" "}
+            donde la aventura y la tradición se encuentran.
+          </p>
+          <Link
+            to="/explora"
+            className="bg-lime-500 hover:bg-lime-600 text-white font-semibold py-3 px-6 rounded-md shadow-md transition duration-300 ease-in-out mx-auto text-lg"
+            style={{ letterSpacing: "0.05em" }}
+          >
+            Explorar Destinos
+          </Link>
+        </div>
+      </div>
+    </header>
+  );
 }

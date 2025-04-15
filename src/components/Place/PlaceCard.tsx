@@ -33,7 +33,7 @@ export default function PlaceCard({
 
             <div className="absolute inset-0 flex flex-col justify-between p-4 bg-black/50 text-white  rounded-3xl ">
                 <Link to={`/places/${place._id}`}>
-                    <h1 className="text-sm md:text-lg font-semibold text-shadow-DEFAULT">
+                    <h1 className="text-sm md:text-lg font-semibold">
                         {place.name.slice(0, 30)}
                     </h1>
                 </Link>

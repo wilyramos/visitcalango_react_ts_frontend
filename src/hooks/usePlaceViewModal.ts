@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 
 
-
 export const usePlaceViewModal = () => {
 
     const navigate = useNavigate()
