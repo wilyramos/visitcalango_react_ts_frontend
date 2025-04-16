@@ -114,13 +114,9 @@ export default function PlaceViewModal() {
                                                 pagination={{ clickable: true }}
 
                                             >
-                                                {data.images.map((image, index) => (
-                                                    <SwiperSlide key={index}>
-                                                        <img
-                                                            src={image}
-                                                            alt={`${data.name} - Imagen ${index + 1}`}
-                                                            className="w-full h-[300px] object-cover rounded-md"
-                                                        />
+                                                {data.images.map((image) => (
+                                                    <SwiperSlide key={image} className="rounded-3xl overflow-hidden">
+                                                        <img src={image} alt={data.name} className="w-full h-64 object-cover rounded-3xl" />
                                                     </SwiperSlide>
                                                 ))}
                                                 {data.images.length > 1 && (

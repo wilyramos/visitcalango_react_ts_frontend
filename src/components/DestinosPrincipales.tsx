@@ -33,11 +33,6 @@ export default function DestinosPrincipales() {
                             className="w-full h-full object-cover rounded-t-md"
                         />
                     ))}
-
-                    
-
-                    
-
                 </div>
                 <div className="p-4">
                   <div className="h-4 bg-gray-400 rounded w-3/4 mb-2"></div>
